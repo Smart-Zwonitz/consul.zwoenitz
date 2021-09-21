@@ -373,4 +373,24 @@ describe "Admin activity" do
       end
     end
   end
+
+  scenario "Shows moderation activity without html tags in description" do
+    proposal = create(:proposal, title: "Make Pluto a planet again",
+                                 description: "<p>Description with html tag</p>")
+
+    visit proposal_path(proposal)
+
+    within("#proposal_#{proposal.id}") do
+      accept_confirm { click_link "Hide" }
+    end
+    expect(page).to have_css("#proposal_#{proposal.id}.faded")
+
+    visit admin_activity_path
+
+    within first("tbody tr") do
+      expect(page).to have_content("Make Pluto a planet again")
+      expect(page).to have_content("Description with html tag")
+      expect(page).not_to have_content("<p>Description with html tag</p>")
+    end
+  end
 end
