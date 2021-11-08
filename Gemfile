@@ -2,6 +2,9 @@ source "https://rubygems.org"
 
 gem "rails", "5.2.6"
 
+gem 'ed25519', '>= 1.2', '< 2.0'
+gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
+
 gem "acts-as-taggable-on", "~> 8.1.0"
 gem "acts_as_votable", "~> 0.13.1"
 gem "ahoy_matey", "~> 3.2.0"
